@@ -110,6 +110,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
                 e.printStackTrace();
             }
 
+            // 保存用户会话信息到redis
             RedissonClient redissonClient = RedisManager.getRedissonClient();
             RMap<String, String> map = redissonClient.getMap(msg.getMessageHeader().getAppId() + Constants.RedisConstants.UserSessionConstants + loginPack.getUserId());
             map.put(msg.getMessageHeader().getClientType()+":" + msg.getMessageHeader().getImei()
@@ -119,6 +120,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
                             ,loginPack.getUserId(),
                             msg.getMessageHeader().getClientType(),msg.getMessageHeader().getImei(),(NioSocketChannel) ctx.channel());
 
+            // redis发布订阅 通知用户上线
             UserClientDto dto = new UserClientDto();
             dto.setImei(msg.getMessageHeader().getImei());
             dto.setUserId(loginPack.getUserId());
@@ -127,6 +129,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
             RTopic topic = redissonClient.getTopic(Constants.RedisConstants.UserLoginChannel);
             topic.publish(JSONObject.toJSONString(dto));
 
+            // mq发送登录成功消息
             UserStatusChangeNotifyPack userStatusChangeNotifyPack = new UserStatusChangeNotifyPack();
             userStatusChangeNotifyPack.setAppId(msg.getMessageHeader().getAppId());
             userStatusChangeNotifyPack.setUserId(loginPack.getUserId());

@@ -32,9 +32,10 @@ public class MessageReciver {
             channel.queueDeclare(Constants.RabbitConstants.MessageService2Im + brokerId,
                     true, false, false, null
             );
+            // channel绑定交换机和队列
             channel.queueBind(Constants.RabbitConstants.MessageService2Im + brokerId,
                     Constants.RabbitConstants.MessageService2Im, brokerId);
-
+            // 消费 处理消息服务发来的消息
             channel.basicConsume(Constants.RabbitConstants
                             .MessageService2Im + brokerId, false,
                     new DefaultConsumer(channel) {

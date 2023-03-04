@@ -35,6 +35,7 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
             } else if (event.state() == IdleState.WRITER_IDLE) {
                 log.info("进入写空闲");
             } else if (event.state() == IdleState.ALL_IDLE) {
+                log.info("进入读写空闲");
                 Long lastReadTime = (Long) ctx.channel()
                         .attr(AttributeKey.valueOf(Constants.ReadTime)).get();
                 long now = System.currentTimeMillis();
