@@ -31,10 +31,10 @@ public class CallbackService {
     ShareThreadPool shareThreadPool;
 
 
-    public void callback(Integer appId,String callbackCommand,String jsonBody){
+    public void callback(Integer appId, String callbackCommand, String jsonBody){
         shareThreadPool.submit(() -> {
             try {
-                httpRequestUtils.doPost(appConfig.getCallbackUrl(),Object.class,builderUrlParams(appId,callbackCommand),
+                httpRequestUtils.doPost(appConfig.getCallbackUrl(), Object.class, builderUrlParams(appId,callbackCommand),
                         jsonBody,null);
             }catch (Exception e){
                 logger.error("callback 回调{} : {}出现异常 ： {} ",callbackCommand , appId, e.getMessage());
