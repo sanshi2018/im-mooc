@@ -46,14 +46,18 @@ public class UserLoginMessageListener {
             public void onMessage(CharSequence charSequence, String msg) {
                 logger.info("收到用户上线通知：" + msg);
                 UserClientDto dto = JSONObject.parseObject(msg, UserClientDto.class);
+                // 获取用户所有的连接
                 List<NioSocketChannel> nioSocketChannels = SessionSocketHolder.get(dto.getAppId(), dto.getUserId());
 
+                // 踢掉其他设备
                 for (NioSocketChannel nioSocketChannel : nioSocketChannels) {
                     if(loginModel == DeviceMultiLoginEnum.ONE.getLoginMode()){
                         Integer clientType = (Integer) nioSocketChannel.attr(AttributeKey.valueOf(Constants.ClientType)).get();
                         String imei = (String) nioSocketChannel.attr(AttributeKey.valueOf(Constants.Imei)).get();
 
+                        // 当前链接的设备类型和imei与上线的设备类型和imei不一致，则踢掉
                         if(!(clientType + ":" + imei).equals(dto.getClientType()+":"+dto.getImei())){
+                            // 发送t人消息
                             MessagePack<Object> pack = new MessagePack<>();
                             pack.setToId((String) nioSocketChannel.attr(AttributeKey.valueOf(Constants.UserId)).get());
                             pack.setUserId((String) nioSocketChannel.attr(AttributeKey.valueOf(Constants.UserId)).get());

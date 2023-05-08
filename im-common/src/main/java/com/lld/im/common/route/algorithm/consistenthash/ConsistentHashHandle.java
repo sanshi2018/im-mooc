@@ -14,6 +14,7 @@ public class ConsistentHashHandle implements RouteHandle {
     //TreeMap
     private AbstractConsistentHash hash;
 
+    // Bean注入时通过反射调用这个方法
     public void setHash(AbstractConsistentHash hash) {
         this.hash = hash;
     }

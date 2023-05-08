@@ -31,7 +31,7 @@ public class ZKit {
 
         boolean webExists = zkClient.exists(Constants.ImCoreZkRoot +
                 Constants.ImCoreZkRootWeb);
-        if(!tcpExists){
+        if(!webExists){
             zkClient.createPersistent(Constants.ImCoreZkRoot +
                     Constants.ImCoreZkRootWeb);
         }

@@ -28,6 +28,7 @@ public abstract class AbstractConsistentHash {
 
     /**
      * 传入节点列表以及客户端信息获取一个服务节点
+     * 注意这里要保证线程安全，因为这个方法会被多个线程调用
      * @param values
      * @param key
      * @return

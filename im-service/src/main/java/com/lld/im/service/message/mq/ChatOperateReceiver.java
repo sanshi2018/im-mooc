@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @description:
+ * @description: 处理聊天消息的消费者
  * @author: lld
  * @version: 1.0
  */

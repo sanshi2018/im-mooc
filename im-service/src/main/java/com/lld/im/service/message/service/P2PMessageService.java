@@ -148,8 +148,7 @@ public class P2PMessageService {
                 //插入数据
                 //1.回ack成功给自己
                 ack(messageContent,ResponseVO.successResponse());
-                //2.发消息给同步在线端
-                syncToSender(messageContent,messageContent);
+
                 //3.发消息给对方在线端
                 List<ClientInfo> clientInfos = dispatchMessage(messageContent);
 

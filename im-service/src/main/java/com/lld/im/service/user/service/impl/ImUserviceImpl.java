@@ -177,10 +177,12 @@ public class ImUserviceImpl implements ImUserService {
         }
 
         ImUserDataEntity update = new ImUserDataEntity();
+        //  不能修改的字段
         BeanUtils.copyProperties(req,update);
 
         update.setAppId(null);
         update.setUserId(null);
+        //
         int update1 = imUserDataMapper.update(update, query);
         if(update1 == 1){
             UserModifyPack pack = new UserModifyPack();

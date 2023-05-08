@@ -13,15 +13,25 @@ import java.util.TreeMap;
  */
 public class TreeMapConsistentHash extends AbstractConsistentHash {
 
-    private TreeMap<Long,String> treeMap = new TreeMap<>();
+    private final TreeMap<Long,String> treeMap = new TreeMap<>();
 
+    /**
+     * 虚拟节点的个数
+     */
     private static final int NODE_SIZE = 2;
 
+    /**
+     * 添加节点,这里一个节点会对应多个虚拟节点
+     * @param key
+     * @param value
+     */
     @Override
     protected void add(long key, String value) {
+        // 创建虚拟节点
         for (int i = 0; i < NODE_SIZE; i++) {
             treeMap.put(super.hash("node" + key +i),value);
         }
+        // 真实节点
         treeMap.put(key,value);
     }
 

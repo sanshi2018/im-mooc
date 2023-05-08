@@ -22,7 +22,7 @@ import sun.rmi.runtime.Log;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description:
+ * @description: 校验签名
  * @author: lld
  * @version: 1.0
  */
@@ -41,12 +41,21 @@ public class IdentityCheck {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
+    /**
+     * 校验签名 通过返回SUCCESS
+     * @param identifier 操作人
+     * @param appId appId
+     * @param userSig 签名
+     * @return
+     */
     public ApplicationExceptionEnum checkUserSig(String identifier,
                                                  String appId,String userSig){
 
+        //  1. 从缓存中获取userSig
         String cacheUserSig = stringRedisTemplate.opsForValue()
                 .get(appId + ":" + Constants.RedisConstants.userSign + ":"
                 + identifier + userSig);
+        // 如果缓存中有userSig 并且没有过期 直接返回成功
         if(!StringUtils.isBlank(cacheUserSig) && Long.valueOf(cacheUserSig)
          >  System.currentTimeMillis() / 1000){
             this.setIsAdmin(identifier,Integer.valueOf(appId));

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 /**
- * @description:
+ * @description: 使用spring的拦截器 来实现接口鉴权
  * @author: lld
  * @version: 1.0
  */
