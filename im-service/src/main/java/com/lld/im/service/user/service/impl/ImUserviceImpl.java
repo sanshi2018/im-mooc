@@ -185,11 +185,12 @@ public class ImUserviceImpl implements ImUserService {
         //
         int update1 = imUserDataMapper.update(update, query);
         if(update1 == 1){
+            // 更新成功回调函数
             UserModifyPack pack = new UserModifyPack();
             BeanUtils.copyProperties(req,pack);
             messageProducer.sendToUser(req.getUserId(),req.getClientType(),req.getImei(),
                     UserEventCommand.USER_MODIFY,pack,req.getAppId());
-
+            // 开启修改用户回调
             if(appConfig.isModifyUserAfterCallback()){
                 callbackService.callback(req.getAppId(),
                         Constants.CallbackCommand.ModifyUserAfter,
