@@ -39,7 +39,7 @@ public class UserSessionUtils {
             String str = (String) o;
             UserSession session =
                     JSONObject.parseObject(str, UserSession.class);
-            if(session.getConnectState() == ImConnectStatusEnum.ONLINE_STATUS.getCode()){
+            if(session.getConnectState().equals(ImConnectStatusEnum.ONLINE_STATUS.getCode())){
                 list.add(session);
             }
         }

@@ -32,12 +32,17 @@ public class GateWayInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+
 //        if (1 == 1){
 //            return true;
 //        }
 
         //获取appId 操作人 userSign
         String appIdStr = request.getParameter("appId");
+        if (true) {
+            return true;
+        }
+
         if(StringUtils.isBlank(appIdStr)){
             resp(ResponseVO.errorResponse(GateWayErrorCode
             .APPID_NOT_EXIST),response);

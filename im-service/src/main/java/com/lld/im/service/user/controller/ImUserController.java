@@ -9,6 +9,8 @@ import com.lld.im.service.user.model.req.*;
 import com.lld.im.service.user.service.ImUserService;
 import com.lld.im.service.user.service.ImUserStatusService;
 import com.lld.im.service.utils.ZKit;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import java.util.List;
  * @author: lld
  * @version: 1.0
  */
+@Api(tags = "用户服务", value = "用户操作相关接口")
 @RestController
 @RequestMapping("v1/user")
 public class ImUserController {
@@ -38,6 +41,8 @@ public class ImUserController {
     @Autowired
     ZKit zKit;
 
+    @ApiOperation(value = "批量注册用户"
+            , httpMethod = "POST")
     @RequestMapping("importUser")
     public ResponseVO importUser(@RequestBody ImportUserReq req, Integer appId) {
         req.setAppId(appId);

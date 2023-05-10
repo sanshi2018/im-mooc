@@ -1,0 +1,5 @@
+# 忽略所有以.class结尾的文件
+*.class
+*.log
+# 忽略target目录下的所有文件
+target/

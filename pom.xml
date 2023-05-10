@@ -43,18 +43,38 @@
 
     <dependencies>
 
-        <!--创建表的插件-->
+<!--        &lt;!&ndash;创建表的插件&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>-->
+<!--            <artifactId>mybatis-enhance-actable</artifactId>-->
+<!--            <version>1.1.1.RELEASE</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;druid数据源&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>druid</artifactId>-->
+<!--            <version>1.1.21</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
-            <artifactId>mybatis-enhance-actable</artifactId>
-            <version>1.1.1.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-        <!--druid数据源-->
+
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.21</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <!--            <version>4.11</version>-->
+            <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
+            <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
 
         <!-- 日志框架 -->
         <dependency>

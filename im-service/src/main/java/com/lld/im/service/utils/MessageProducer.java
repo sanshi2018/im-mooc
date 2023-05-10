@@ -37,7 +37,7 @@ public class MessageProducer {
 
     private String queueName = Constants.RabbitConstants.MessageService2Im;
 
-    public boolean sendMessage(UserSession session,Object msg){
+    public boolean sendMessage(UserSession session, Object msg){
         try {
             logger.info("send message == " + msg);
             rabbitTemplate.convertAndSend(queueName,session.getBrokerId()+"",msg);
@@ -49,7 +49,7 @@ public class MessageProducer {
     }
 
     //包装数据，调用sendMessage
-    public boolean sendPack(String toId, Command command,Object msg,UserSession session){
+    public boolean sendPack(String toId, Command command, Object msg, UserSession session){
         MessagePack messagePack = new MessagePack();
         messagePack.setCommand(command.getCommand());
         messagePack.setToId(toId);
@@ -64,7 +64,7 @@ public class MessageProducer {
     }
 
     //发送给所有端的方法
-    public List<ClientInfo> sendToUser(String toId,Command command,Object data,Integer appId){
+    public List<ClientInfo> sendToUser(String toId, Command command, Object data, Integer appId){
         List<UserSession> userSession
                 = userSessionUtils.getUserSession(appId, toId);
         List<ClientInfo> list = new ArrayList<>();
@@ -79,10 +79,12 @@ public class MessageProducer {
 
     public void sendToUser(String toId, Integer clientType,String imei, Command command,
                            Object data, Integer appId){
+        // clientType 和 imei 都不为空说明是app调用，则发送给除了app的其他端
         if(clientType != null && StringUtils.isNotBlank(imei)){
             ClientInfo clientInfo = new ClientInfo(appId, clientType, imei);
             sendToUserExceptClient(toId,command,data,clientInfo);
         }else{
+            // 否则管理员调用发送给所有端
             sendToUser(toId,command,data,appId);
         }
     }
