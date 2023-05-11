@@ -29,6 +29,13 @@ public class GroupMessageProducer {
     @Autowired
     ImGroupMemberService imGroupMemberService;
 
+    /**
+     * 发送群组消息
+     * @param userId 发送人
+     * @param command 消息类型
+     * @param data 待发送的消息
+     * @param clientInfo 发送人客户端信息
+     */
     public void producer(String userId, Command command, Object data,
                          ClientInfo clientInfo){
         JSONObject o = (JSONObject) JSONObject.toJSON(data);

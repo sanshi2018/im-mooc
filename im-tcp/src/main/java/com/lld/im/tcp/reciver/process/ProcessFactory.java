@@ -24,6 +24,9 @@ public class ProcessFactory {
     }
 
     public static BaseProcess getMessageProcess(Integer command) {
+//        if (command == "usercom") {
+//            return userProcess;
+//        }
         return defaultProcess;
     }
 

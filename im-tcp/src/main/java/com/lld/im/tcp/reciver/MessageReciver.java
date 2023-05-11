@@ -43,7 +43,7 @@ public class MessageReciver {
                         public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                             try {
                                 String msgStr = new String(body);
-                                log.info(msgStr);
+                                log.info("处理queue中mq消息"+msgStr);
                                 MessagePack messagePack =
                                         JSONObject.parseObject(msgStr, MessagePack.class);
                                 BaseProcess messageProcess = ProcessFactory
@@ -60,7 +60,7 @@ public class MessageReciver {
                     }
             );
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
