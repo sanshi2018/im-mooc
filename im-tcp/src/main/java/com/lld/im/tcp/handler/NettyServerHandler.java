@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 /**
  * @description:
@@ -205,6 +206,17 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
 //        ctx.close();
 //    }
 
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+        // 打印客户端ip port
+        InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+        String clientIp = insocket.getAddress().getHostAddress();
+        int port = insocket.getPort();
+        System.out.println("客户端链接：clientIp:" + clientIp + " port:" + port);
+
+    }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {

@@ -45,6 +45,7 @@ public class Starter {
             BootstrapConfig bootstrapConfig = yaml.loadAs(inputStream, BootstrapConfig.class);
 
             new LimServer(bootstrapConfig.getLim()).start();
+            // WebSocket服务
             new LimWebSocketServer(bootstrapConfig.getLim()).start();
 
             RedisManager.init(bootstrapConfig);
